@@ -1,0 +1,81 @@
+﻿@model WorkingWithMultipleTable_Prod.Models.Combined.EmployeeDepartmentModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var Department = ViewData["Department"] as List<Department>;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            @if(Model !=null)
+            {
+                <h2 class="text-info text-center mb-3">Edit Employee Record</h2>
+            }
+            else
+            {
+                <h2 class="text-info text-center mb-3">Add Employee Record</h2>
+            }
+            
+            <form method="post" asp-action="Create">
+                <div class="text-danger text-center" asp-validation-summary="ModelOnly"></div>
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="EmployeeId" />
+                }
+                <div class="mb-3">
+                    <label asp-for="FirstName">First Name</label>
+                    <input type = "text" asp-for="FirstName" placeholder="Enter First Name" class="form-control mt-2" />
+                    <span class="text-danger" asp-validation-for="FirstName"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MiddleName">Middle Name</label>
+                    <input type="text" asp-for="MiddleName" placeholder="Enter Middle Name" class="form-control mt-2" />
+                    <span class="text-danger" asp-validation-for="MiddleName"></span>
+                </div>
+                 <div class="mb-3">
+                    <label asp-for="LastName">Last Name</label>
+                    <input type="text" asp-for="LastName" placeholder="Enter Last Name" class="form-control mt-2" />
+                    <span class="text-danger" asp-validation-for="LastName"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Gender">Gender</label>
+                    <input type="text" asp-for="Gender" placeholder="Enter Gender" class="form-control mt-2" />
+                    <span class="text-danger" asp-validation-for="Gender"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DepartmentId">Department</label>
+                    <select type="text" asp-for="DepartmentId" placeholder="Enter Department" class="form-control mt-2">
+                        <option value="">--Select Department--</option>
+                        @if(Department != null)
+                        {
+                            @foreach (var d in Department)
+                            {
+                                <option value="@d.DepartmentId">@d.DepartmentName</option>
+                            }
+                        }
+                        
+                    </select>
+                    <span class="text-danger" asp-validation-for="DepartmentId"></span>
+
+                    <div class="mb-3">
+                        <a class="btn btn-secondary btn-sm mt-5" asp-action="Index" asp-controller="Employee"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                         @if (Model != null)
+                {
+                            <input type="submit" class="btn btn-warning btn-sm mt-5 float-end" value="Update" />
+                        }
+                        else
+                        {
+                            <input type="submit" class="btn btn-success btn-sm mt-5 float-end" value="Add Employee" />
+                        }
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+                         @section scripts{
+                             @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                         }

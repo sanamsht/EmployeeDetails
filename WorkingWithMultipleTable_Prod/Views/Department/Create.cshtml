@@ -1,0 +1,47 @@
+﻿@model WorkingWithMultipleTable_Prod.Models.Department
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-4 offset-4">
+            @if (Model.DepartmentId != 0)
+            {
+                <h2 class="text-info text-center mb-3">Edit Department</h2>
+            }
+            else
+            {
+                <h2 class="text-info text-center mb-3">Add Department</h2>
+            }
+
+            <form method="post" asp-action="Create" asp-controller="Department">
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="DepartmentId" />
+                }
+                <div class="mb-3">
+                    <label asp-for="DepartmentName">Department Name</label>
+                    <input type="text" asp-for="DepartmentName" placeholder="Enter Department Name" class="form-control mt-2" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DepartmentCode">Department Code</label>
+                    <input type="text" asp-for="DepartmentCode" placeholder="Enter Department Code" class="form-control mt-2" />
+                </div>
+                <div class="mb-2">
+                    @if (Model.DepartmentId != 0)
+                    {
+                        <input type="submit" class="btn btn-warning btn-sm mt-4 float-end" value="Update" />
+                    }
+                    else
+                    {
+                        <input type="submit" class="btn btn-success btn-sm mt-3 float" value="Add Department" />
+                    }
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿@if(TempData["success"] !=null)
+{
+    <div class="container" style="width: auto; float: right">
+        <div class="alert alert-success notification">
+            <i class="fa-solid fa-circle-info"></i><i class="fa fa-times" onclick="hideNotification();" style="cursor:pointer; float:right;"></i>
+            <strong>Success!</strong>
+            <span class="text-success" style="white-space: pre-line"><br />@TempData["success"]</span>
+        </div>
+    </div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="container" style="width: auto; float: right">
+        <div class="alert alert-danger notification">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <i class="fa fa-times" onclick="hideNotification();" style="cursor:pointer; float:right"></i>
+            <strong>Error!</strong>
+            <span class="text-danger" style="white-space: pre-line"><br />@TempData["error"]</span>
+        </div>
+    </div>
+}
+
+
+<script>
+   
+</script>

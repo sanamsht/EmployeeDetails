@@ -1,0 +1,42 @@
+﻿@model WorkingWithMultipleTable_Prod.Models.Combined.EmployeeDepartmentModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header text-center">
+                    @if(Model.Gender == "Male")
+                    {
+                        <img src="~/image/male.png" style="height: 50%; width: 50%; border-radius:50% ">
+                    }
+                    else
+                    {
+                        <img src="~/image/female.png" style="height: 50%; width:50%; border-radius:50% ">
+                        
+                    }
+                </div>
+                <div class="card-body">
+                    <h5 class=" text-info text-center">Employee Detail</h5>
+                    <table class="table table-bordered text-center">
+                        <tr><td>Employee Id</td><td class="text-secondary">@Model.EmployeeId</td></tr>
+                        <tr><td> Name</td><td class="text-secondary">@Model.FullName</td></tr>
+                        <tr><td>Gender</td><td class="text-secondary">@Model.Gender</td></tr>
+                        <tr><td>Department Id</td><td class="text-secondary">@Model.DepartmentId</td></tr>
+                        <tr><td>Department</td><td class="text-secondary">@Model.DepartmentName</td></tr>
+                        <tr><td>Department Code</td><td class="text-secondary">@Model.DepartmentCode</td></tr>
+                    </table>
+
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2">
+                        <a class="btn bts-sm btn-primary m-2 p-2" asp-action="Index" asp-controller="Employee">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
