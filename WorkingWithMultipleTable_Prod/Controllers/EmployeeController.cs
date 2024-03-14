@@ -62,27 +62,35 @@ namespace WorkingWithMultipleTable_Prod.Controllers
                 {
                     if (employee.EmployeeId != 0)
                     {
-                        var emp = await _context.Employees.FindAsync(employee.EmployeeId);
-                        if (emp != null)
-                        {
+                        //var emp = await _context.Employees.FindAsync(employee.EmployeeId);
+                        //if (emp != null)
+                        //{
 
-                            emp.EmployeeId = employee.EmployeeId;
-                            emp.FirstName = employee.FirstName;
-                            emp.LastName = employee.LastName;
-                            emp.MiddleName = employee.MiddleName;
-                            emp.Gender = employee.Gender;
-                            emp.DepartmentId = employee.DepartmentId;
+                            //emp.EmployeeId = employee.EmployeeId;
+                            //emp.FirstName = employee.FirstName;
+                            //emp.LastName = employee.LastName;
+                            //emp.MiddleName = employee.MiddleName;
+                            //emp.Gender = employee.Gender;
+                            //emp.DepartmentId = employee.DepartmentId;
+                            var emp = new Employee()
+                            {
+                                EmployeeId = employee.EmployeeId,
+                                FirstName = employee.FirstName,
+                                LastName = employee.LastName,
+                                MiddleName = employee.MiddleName,
+                                Gender = employee.Gender,
+                                DepartmentId = employee.DepartmentId,
+                            };
 
-                            
                             _context.Employees.Update(emp);
 
                             TempData["success"] = "Record updated successfully";
 
-                        }
-                        else
-                        {
-                            return NotFound();
-                        }
+                        //}
+                        //else
+                        //{
+                        //    return NotFound();
+                        //}
 
 
                     }
@@ -121,27 +129,41 @@ namespace WorkingWithMultipleTable_Prod.Controllers
 
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int[] id)
         {
+            string result = string.Empty;
             try
             {
-                if (id == 0)
+                if (id.Length == 0)
                 {
-                    return BadRequest();
+                    TempData["error"] = "No Records to Delete";
+                    result = "success";
                 }
                 else
                 {
-                    var data = await _context.Employees.FindAsync(id);
-                    if (data == null)
+                    foreach (var item in id)
                     {
-                        NotFound();
+                        if (item == 0)
+                        {
+                            return BadRequest();
+                        }
+                        else
+                        {
+                            var data = await _context.Employees.FindAsync(item);
+                            if (data == null)
+                            {
+                                NotFound();
+                            }
+                            else
+                            {
+                                _context.Employees.Remove(data);
+
+                            }
+                        }
                     }
-                    else
-                    {
-                        _context.Employees.Remove(data);
-                        await _context.SaveChangesAsync();
-                        TempData["success"] = "Record Deleted Successfully";
-                    }
+                    await _context.SaveChangesAsync();
+                    TempData["success"] = "Record(s) Deleted Successfully";
+                    result = "success";
                 }
             }
             catch (Exception)
@@ -149,7 +171,8 @@ namespace WorkingWithMultipleTable_Prod.Controllers
 
                 throw;
             }
-            return RedirectToAction("Index");
+                       
+            return new JsonResult(result);
 
         }
         public async Task<IActionResult> Edit(int id)
