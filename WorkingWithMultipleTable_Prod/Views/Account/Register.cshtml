@@ -1,0 +1,36 @@
+﻿@model RegisterVM
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutLR.cshtml";
+}
+
+
+            <h3 class="text-info mb-5 mt-5 text-center" style="font-size:40px;">Create an Account</h3>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3 form-check">
+                    <label asp-for="Email"></label><span class="text-danger fw-bold">*</span>
+                    <input type="text" asp-for="Email" class="m-3 p-3 form-control" placeholder="Enter email" autocomplete="Email"  />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+                <div class="mb-3 form-check">
+                    <label asp-for="Password"></label><span class="text-danger fw-bold">*</span>
+                    <input type="password" asp-for="Password" class="m-3 p-3 form-control" placeholder="Enter Password"  />
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+                <div class="mb-3 form-check">
+                    <label asp-for="ConfirmPassword"></label><span class="text-danger fw-bold">*</span>
+                    <input type="password" asp-for="ConfirmPassword" class="m-3 p-3 form-control" placeholder="Enter Password"  />
+                    <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                </div>
+
+                <div class="mt-2 form-check">
+                    <input type="submit" class="btn btn-sm btn-outline-primary float-end" value="SignUp" style="width: 20%; margin-right: 30px" />
+                </div>
+            </form>
+
+            <center class="mt-5 mb-5">Already Have an Account? <a asp-action="Login" class="text-decoration-none flex-column"> Login</a></center>
+      
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

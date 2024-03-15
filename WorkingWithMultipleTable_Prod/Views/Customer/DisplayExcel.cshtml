@@ -1,0 +1,68 @@
+﻿@using WorkingWithMultipleTable_Prod.Utility
+@model List<WorkingWithMultipleTable_Prod.Models.Customer>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+   
+    <div class="row">
+        <div class="col-12">
+            <form method="post" asp-controller="Customer" asp-action="ImportExcel">
+                
+                    <input type="submit" class="btn btn-sm btn-info text-light float-end" value="Import" />
+                
+                <table class="table table-bordered table-responsive">
+                    <thead class="bg-dark text-light text-center">
+                        <tr>
+                            <th><input type="checkbox" name="selectAll" id="selectAll" /> Select All</th>
+                            <th>CustomerId</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Country</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>Age</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @for (int i = 0; i < Model.Count(); i++)
+                        {
+                            <tr>
+                                <td><input type="checkbox" class="selectOne" asp-for="@Model[i].Active" /></td>
+                                <td>@Model[i].CustomerId<input type="hidden" asp-for="@Model[i].CustomerId" /></td>
+                                <td>@Model[i].FirstName<input type="hidden" asp-for="@Model[i].FirstName" /></td>
+                                <td>@Model[i].LastName<input type="hidden" asp-for="@Model[i].LastName" /></td>
+                                <td>@Model[i].Country<input type="hidden" asp-for="@Model[i].Country" /></td>
+                                <td>@Model[i].Gender<input type="hidden" asp-for="@Model[i].Gender" /></td>
+                                <td>@Model[i].Email<input type="hidden" asp-for="@Model[i].Email" /></td>
+                                <td>@Model[i].Age<input type="hidden" asp-for="@Model[i].Age" /></td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/CustomJS.js"></script>
+    <script>
+
+        $('.selectOne').click(function(){
+            if ($(".selectOne:checked").length == $('.selectOne').length)
+            {
+                $('#selectAll').prop("checked", true);
+            }
+            else{
+                $('#selectAll').prop("checked", false);
+            }
+        })
+        
+    </script>
+    
+}

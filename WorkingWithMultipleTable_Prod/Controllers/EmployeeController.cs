@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using WorkingWithMultipleTable_Prod.Data;
@@ -9,6 +10,7 @@ using WorkingWithMultipleTable_Prod.Utility;
 
 namespace WorkingWithMultipleTable_Prod.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly ApplicationContext _context;
@@ -123,7 +125,7 @@ namespace WorkingWithMultipleTable_Prod.Controllers
             else
             {
 
-                return BadRequest();
+                return BadRequest(); 
             }
 
 

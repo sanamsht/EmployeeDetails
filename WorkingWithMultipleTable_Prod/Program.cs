@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WorkingWithMultipleTable_Prod.Data;
+
+using WorkingWithMultipleTable_Prod.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,25 @@ builder.Services.AddDbContext<ApplicationContext>(option =>
 {
     option.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection"));
 });
+builder.Services.AddDbContext<DBContext>(option =>
+{
+    option.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection"));
+});
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBContext>().AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.AccessDeniedPath = "/Account/Login";
+    option.LoginPath = "/Home/Index";
+    option.LogoutPath = "/Account/Logout";
+    option.Cookie.Name = "Auth";
+    option.ExpireTimeSpan = TimeSpan.FromHours(30);
+    option.SlidingExpiration = true;
+
+});
+
+
+
 var app = builder.Build();
 
 
@@ -24,11 +46,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using WorkingWithMultipleTable_Prod.Data;
@@ -6,6 +7,7 @@ using WorkingWithMultipleTable_Prod.Models;
 
 namespace WorkingWithMultipleTable_Prod.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly ApplicationContext _context;

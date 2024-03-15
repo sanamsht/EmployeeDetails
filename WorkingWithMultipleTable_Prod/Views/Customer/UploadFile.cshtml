@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "UploadFile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h1 class="text-center text-info">Upload Customer Excel File</h1>
+            <form method="post" enctype="multipart/form-data" asp-controller="Customer" asp-action="UploadFile" class="m-2 p-2">
+                <div class="form-check mb-3">
+                    <label> Please Select File:</label>
+                    <input type="file" name="file" class="form-control mt-2"/>
+                </div>
+                <div class="form-check mh-3">
+                    <input type="submit" class="btn btn-md btn-outline-success" value="Upload" />
+                </div>
+                </form>
+        </div>
+    </div>
+</div>
