@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> signinManager
-@inject UserManager<IdentityUser> userManager
+@using WorkingWithMultipleTable_Prod.Models.IdentityModel;
+@inject SignInManager<ApplicationUser> signinManager
+@inject UserManager<ApplicationUser> userManager
 
 <div>
 

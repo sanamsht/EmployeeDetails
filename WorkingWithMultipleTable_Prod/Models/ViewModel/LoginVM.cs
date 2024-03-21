@@ -4,7 +4,7 @@ namespace WorkingWithMultipleTable_Prod.Models.ViewModel
 {
     public class LoginVM
     {
-
+      
         [EmailAddress]
         [Required(ErrorMessage = "Please Enter Email")]
         public string Email { get; set; } = default!;

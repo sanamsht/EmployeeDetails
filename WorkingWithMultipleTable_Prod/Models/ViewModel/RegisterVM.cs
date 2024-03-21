@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WorkingWithMultipleTable_Prod.Models.ViewModel
 {
@@ -15,5 +14,17 @@ namespace WorkingWithMultipleTable_Prod.Models.ViewModel
         [Required(ErrorMessage ="Please enter confirm password")]
         [Compare("Password", ErrorMessage ="Password Mismatch")]
         public string ConfirmPassword { get; set; } = default!;
+        [Display(Name = "First Name")]
+        public string? FirstName { get; set; }
+        [Display(Name = "Last Name")]
+        public string? LastName { get; set; }
+        public string? Gender { get; set; }
+        [Display(Name = "Date of Birth")]
+        public DateTime? BirthDate { get; set; }
+        public DateTime? CreatedOn { get; set; } 
+        public DateTime? ModifiedOn { get; set; } 
+        [Display(Name = "Active")]
+        public bool Status { get; set; }
+        public string Username { get; set; } = default!;
     }
 }

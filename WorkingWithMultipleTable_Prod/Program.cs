@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WorkingWithMultipleTable_Prod.Data;
-
-using WorkingWithMultipleTable_Prod.Utility;
+using WorkingWithMultipleTable_Prod.Models.IdentityModel;
+using WorkingWithMultipleTable_Prod.Repository.Interface;
+using WorkingWithMultipleTable_Prod.Repository.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,9 @@ builder.Services.AddDbContext<DBContext>(option =>
 {
     option.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection"));
 });
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option =>
+option.SignIn.RequireConfirmedEmail = true
+).AddEntityFrameworkStores<DBContext>().AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(option =>
 {
@@ -29,7 +32,7 @@ builder.Services.ConfigureApplicationCookie(option =>
 
 });
 
-
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 

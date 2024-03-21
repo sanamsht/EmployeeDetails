@@ -7,36 +7,47 @@
 
 
 
-            <h3 class="text-muted m-3 p-3 text-center text-capitalize" style="font-size:40px;">Login</h3>
-            
-            <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="mb-3 form-check">
-                    <label asp-for="Email" class="fw-bold"></label><span class="text-danger fw-bold">*</span>
-                    <input type="text" asp-for="Email" class="p-3 m-3 form-control" id="email" placeholder="Enter email" autocomplete="Email" style="width: 90%"/>
-                    <span class="text-danger" asp-validation-for="Email"></span>
-                </div>
-                <div class="mb-3 form-check" >
-                    <label asp-for="Password" class="fw-bold"></label><span class="text-danger fw-bold">*</span>
-                    <input type="password" asp-for="Password" class="m-3 p-3 form-control" id="password" placeholder="Enter Password" style="width: 90%" />
-                    <i id="open" class="fa fa-eye float-end" style="margin-top:-50px; margin-right: 50px; cursor:pointer"></i>
-                    <i id="closed" class="fa fa-eye-slash float-end" style="margin-top:-50px; margin-right: 50px; display:none; cursor:pointer"></i>
-                    <span class="text-danger" asp-validation-for="Password"></span>
-                </div>
-                <div class="mb-3 form-check">
-                    <label asp-for="RememberMe">
-                        <input type="checkbox" asp-for="RememberMe" id="rememberMe" class="m-3 p-3" /> Remember Me
-                    </label>
+<h3 class="text-muted m-3 p-3 text-center text-capitalize" style="font-size:40px;">Login</h3>
 
-                </div>
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    
+    <div class="mb-3 form-check">
+        <label asp-for="Email" class="fw-bold"></label><span class="text-danger fw-bold">*</span>
+        <input type="text" asp-for="Email" class="p-3 m-3 form-control" id="email" placeholder="Enter email" autocomplete="Email" style="width: 90%" />
+        <span class="text-danger" asp-validation-for="Email"></span>
+    </div>
+    <div class="mb-3 form-check">
+        <label asp-for="Password" class="fw-bold"></label><span class="text-danger fw-bold">*</span>
+        <input type="password" asp-for="Password" class="m-3 p-3 form-control" id="password" placeholder="Enter Password" style="width: 90%" />
+        <i id="open" class="fa fa-eye float-end" style="margin-top:-50px; margin-right: 50px; cursor:pointer"></i>
+        <i id="closed" class="fa fa-eye-slash float-end" style="margin-top:-50px; margin-right: 50px; display:none; cursor:pointer"></i>
+        <span class="text-danger" asp-validation-for="Password"></span>
+    </div>
+    <div class="mb-3 form-check">
+        <label asp-for="RememberMe">
+            <input type="checkbox" asp-for="RememberMe" id="rememberMe" class="m-3 p-3" /> Remember Me
+        </label>
 
-                <div class="mt-2 form-check">
-                    <input type="submit" id="btnLogin" class="btn btn-outline-primary float-end" value="Login" style="width: 20%; margin-right: 30px" />
-                </div>
-            </form>
+    </div>
+    <div class="mb-3 form-check">
+        <div class="row">
+            <div class="col-6">
+            <a class="float-end btn btn-sm btn-outline-primary border-0" asp-action="ForgetPassword"> Forget Password</a>
+            </div>
+            <div class="col-6">
+                <a class="btn btn-sm btn-outline-primary border-0" asp-action="ForgetUsername"> Forget Username</a>
+            </div>
+        </div>
+    </div>
 
-            <center class="mt-5 mb-5">Don't Have an Account? <a asp-action="Register" class="text-decoration-none flex-column"> SignUP</a></center>
-        
+    <div class="mt-2 form-check text-center">
+        <button type="submit" id="btnLogin" class="btn btn-outline-primary"  style="width:50%; " ><i class="fa-solid fa-sign-in"></i> Login</button>
+    </div>
+</form>
+
+<center class="mt-5 mb-5">Don't Have an Account? <a asp-action="Register" class="text-decoration-none flex-column"> SignUP</a></center>
+
 @section scripts{
     <partial name="_ValidationScriptsPartial" />
     <script>
@@ -54,11 +65,11 @@
             });
 
         })
-$('#rememberMe, #btnLogin').click(function(){
-    CreateCookie();
-})
-       
-function CreateCookie(){
+        $('#rememberMe, #btnLogin').click(function () {
+            CreateCookie();
+        })
+
+        function CreateCookie() {
             let email = $('#email').val();
             let password = $('#password').val();
             let rememberMe = $('#rememberMe').val();
@@ -74,29 +85,28 @@ function CreateCookie(){
                 document.cookie = 'username=; expires=;';
                 document.cookie = 'password=; expires=;';
             }
-}
-
-function GetCookie(name){
-    let cookie = document.cookie.split(';');
-    for(var i =0; i< cookie.length; i++)
-    {
-        let ck = cookie[i].trim();
-        if(ck.startsWith(name +'=')){
-            return ck.substring(name.length +1);
         }
-    }
-    return null;
-}
 
-window.onload = function(){
-    let email = GetCookie('username');
-    let password = GetCookie('password');
-    if(email && password){
-        $('#email').val(atob(email));
-        $('#password').val(atob(password));
-        $('#email').val(atob(email));
-        $('#rememberMe').prop('checked', true);
-    }
-}
+        function GetCookie(name) {
+            let cookie = document.cookie.split(';');
+            for (var i = 0; i < cookie.length; i++) {
+                let ck = cookie[i].trim();
+                if (ck.startsWith(name + '=')) {
+                    return ck.substring(name.length + 1);
+                }
+            }
+            return null;
+        }
+
+        window.onload = function () {
+            let email = GetCookie('username');
+            let password = GetCookie('password');
+            if (email && password) {
+                $('#email').val(atob(email));
+                $('#password').val(atob(password));
+                $('#email').val(atob(email));
+                $('#rememberMe').prop('checked', true);
+            }
+        }
     </script>
 }

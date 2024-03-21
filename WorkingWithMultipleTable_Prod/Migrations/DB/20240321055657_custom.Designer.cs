@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WorkingWithMultipleTable_Prod.Data;
@@ -11,9 +12,11 @@ using WorkingWithMultipleTable_Prod.Data;
 namespace WorkingWithMultipleTable_Prod.Migrations.DB
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20240321055657_custom")]
+    partial class custom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
